@@ -1,0 +1,30 @@
+.container p {
+    color: #1d212b;
+    font-size: 0.875rem;
+    width: 100%;
+}
+
+.container div {
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #fafafa;
+    display: flex;
+    border: 1px solid hsl(220 13% 91%);
+    border-radius: 0.375rem;
+}
+
+.container div input {
+    background-color: transparent;
+    border: none;
+    border-radius: 0.375rem;
+    width: 100%;
+    font-size: 0.875rem;
+    /* 14px */
+    line-height: 1.25rem;
+    /* 20px */
+    color: hsl(220 10% 46%);
+}
+
+.container div input:focus {
+    outline: none;
+}
