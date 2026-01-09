@@ -2,7 +2,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import styles from "./InputLogin.module.css"
 
-function InputLogin({ folder, placeholder, type, icon }) { 
+function InputLogin({ folder, placeholder, type, icon, onChange, value }) { 
     //const [isOn, setOn] = useState(icon);
     const [inputType, setInputType] = useState(type);
    
@@ -13,7 +13,7 @@ function InputLogin({ folder, placeholder, type, icon }) {
         <div className={styles.container}>
             <p>{folder}</p>
             <div>
-                <input type={inputType} placeholder={placeholder}/>
+                <input type={inputType} placeholder={placeholder} value={value} onChange={onChange}/>
                 {icon && (
                     inputType === "password" ?
                     <Eye size={20} onClick={() => { setInputType("text")}} /> :
