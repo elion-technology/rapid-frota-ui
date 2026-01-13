@@ -1,0 +1,17 @@
+.container {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    gap: 0.25rem;
+}
+
+.active {
+    color: #21c45d;
+    background-color: rgba(33, 196, 93, 0.102);
+}
+
+.inactive {
+    color: #6a7181;
+    background-color: #f3f4f6;
+    
+}

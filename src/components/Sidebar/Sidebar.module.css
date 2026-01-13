@@ -1,0 +1,20 @@
+.sidebar {
+    background-color: #1d212b;
+    width: 67%;
+    height: 100%;
+}
+
+.sidebarOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.3 );
+
+}
+
+.buttons {
+    padding: 1rem 0.75rem;
+}

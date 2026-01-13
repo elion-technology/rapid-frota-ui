@@ -7,8 +7,6 @@ function InputLogin({ folder, placeholder, type, icon, onChange, value }) {
     const [inputType, setInputType] = useState(type);
    
 
-    let varControlIcon = true;
-
     return (
         <div className={styles.container}>
             <p>{folder}</p>

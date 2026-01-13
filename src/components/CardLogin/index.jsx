@@ -1,6 +1,7 @@
 import InputLogin from "../InputLogin"
 import styles from "./CardLogin.module.css";
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -8,11 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 function CardLogin() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const navigate = useNavigate();
 
     const requestLogin = async () => {
-
-        console.log(`${email}:${senha}`)
-
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth`, {
                 method: "POST",
@@ -27,6 +26,8 @@ function CardLogin() {
 
             const data = await response.text();
             toast.success("Login realizado com sucesso!");
+            navigate("/")
+
         
         } catch (err) {
             console.error(err.message);
