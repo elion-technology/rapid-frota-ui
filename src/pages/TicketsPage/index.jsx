@@ -1,7 +1,6 @@
 import styles from "./TicketsPage.module.css"
 import Title from "../../components/Title";
 import ButtonPage from "../../components/ButtonPage";
-import { useNavigate } from "react-router-dom";
 
 function TicketsPage() {
 

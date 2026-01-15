@@ -3,6 +3,7 @@ import { useState } from "react";
 function InputChecklist({ part, name }) {
     const [tipo, setTipo] = useState(true);
     const [data, setData] = useState("");
+    console.log(data);
 
     return (
         <div>
@@ -22,6 +23,7 @@ function InputChecklist({ part, name }) {
             />
 
             {!tipo && <input type="text" placeholder="Descreva a problema..." onChange={(e) => setData(e.target.value)} />}
+            
         </div>
     )
 }
