@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+    position: fixed;
+    background-color: #000000af;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.container h1 {
+    color: #1d121b;
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    text-align: center;
+}
+
+.container form {
+    background-color: #fafafa;
+    padding: 1.5rem;
+    gap: 1rem;
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    height: fit-content;
+    border-radius: 0.875rem;
+}
+
+.container label {
+    color: #1d121b;
+    font-family: "Inter", sans-serif;
+    font-size: 0.875rem;
+}
+
+.container .select {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: auto;
+}
+
+.containerSelect {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+
+.container .selects {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(30 95% 58%) 100%);
+    font-family: "Inter", sans-serif;
+    color: #fff;
+}
+
+
+.btnCancel {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    font-family: "Inter", sans-serif;
+    color: #1d121b;
+    border: 1px solid hsl(220 13% 91%);
+}

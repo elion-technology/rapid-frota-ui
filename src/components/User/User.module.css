@@ -5,6 +5,8 @@
     border-radius: 0.75rem;
     gap: 1rem;
     flex-direction: column;
+    border: 1px solid hsl(220 13% 91%);
+    
 }
 
 .header {
@@ -59,4 +61,26 @@
 .label p {
     font-size: 0.875rem;
     color: #1d212b;
+}
+
+.divButton {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    border-top: 1px solid hsl(220 13% 91%);;
+}
+
+.divButton button {
+    font-size: 0.875rem;
+    color: #1d212b;
+    background-color: #fafafa;
+    padding: 0.5rem 0.75rem;
+    font-family: "Inter", sans-serif;
+    border-radius: 0.375rem;
+    border: 0.5px solid hsl(220 13% 91%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    margin-top: 1rem;
 }

@@ -1,5 +1,5 @@
 import styles from "./User.module.css";
-import { CircleUserRound, CircleCheckBig, CircleX } from "lucide-react";
+import { CircleUserRound, CircleCheckBig, CircleX, SquarePen } from "lucide-react";
 import Tag from "../Tag";
 import CloneTag from "../CloneTag";
 
@@ -9,7 +9,7 @@ function User({ id, cargo, nome, ativo, departamento, email, }) {
             <div className={styles.header}>
                 <div>
                     <div>
-                        <CircleUserRound />
+                        <CircleUserRound color="#f97015" />
                     </div>
                     <div>
                         <h3>{nome}</h3>
@@ -39,6 +39,10 @@ function User({ id, cargo, nome, ativo, departamento, email, }) {
                         <span>Email</span>
                         <p>{email}</p>
                     </div>
+                </div>
+                <div className={styles.divButton}>
+                    <button><SquarePen size={14} color="#1d212b" />Editar</button>
+                    {ativo ? <button><CircleX size={14} color="#1d212b"/>Desativar</button> : <button><CircleCheckBig size={14} color="#1d212b"/>Ativar</button>}
                 </div>
             </div>
         </div>

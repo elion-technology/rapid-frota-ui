@@ -3,78 +3,93 @@ import ButtonPage from "../../components/ButtonPage";
 import styles from "./UsersPage.module.css";
 import { useState, useEffect } from "react";
 import User from "../../components/User";
-import { UserRoundCog, CircleCheckBig } from "lucide-react";
+import { UserRoundCog, CircleCheckBig, Search } from "lucide-react";
 import MiniCardUser from "../../components/MiniCardUser";
+import FormUser from "../../components/FormUser";
 
 function UsersPage() {
-    //const [data, setData] = useState([]);
+    const [data, setData] = useState([]);
+    const [isOpen, setIsOpen] = useState(false)
+    const [search, setSearch] = useState("");
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const res = await fetch(`${process.env.REACT_APP_API_URL}/api/user`);
-    //             const json = await res.json();
-    //             setData(json);
-    //         } catch (err) {
-    //             console.error(err);
-    //         }
-    //     };
 
-    //     fetchData();
-    // }, []);
 
-    const users = [
-        {
-            "id": "08de4f8d-a5af-4feb-8032-1ee89e4f952e",
-            "userName": "gabrielr4@gmail.com.br",
-            "emailConfirmed": false,
-            "cargo": "Supervisor",
-            "departamento": "Infraestrutura",
-            "name": "Gabriel Ramos"
-        },
-        {
-            "id": "08de4f9f-4361-4bba-86a5-831ce646aaa8",
-            "userName": "gabriel.amos@example.com",
-            "emailConfirmed": true,
-            "cargo": "Supervisor",
-            "departamento": "Infraestrutura",
-            "name": "Gabriel Ramos"
-        },
-    ]
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth`, {
+                    method: "GET",
+                    credentials: "include"
+                });
+
+                if (!res.ok) {
+                    console.log("Não autorizado:", res.status);
+                    return;
+                }
+
+                const json = await res.json();
+                setData(json);
+
+
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const filteredUsers = data.filter(user =>
+        user.name.toLowerCase().includes(search.toLowerCase()) ||
+        user.userName.toLowerCase().includes(search.toLowerCase()) ||
+        user.departamento.toLowerCase().includes(search.toLowerCase()) ||
+        user.cargo.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <main className={styles.container}>
             <section className={styles.containerOne}>
                 <section className={styles.header}>
                     <Title title="Usuários" text="Gerencie os acessos ao sistema" />
-                    <ButtonPage text="Usuário" />
+                    <ButtonPage text="Usuário" func={() => setIsOpen(true)} />
+
+
                 </section>
                 <div className={styles.cards}>
                     <MiniCardUser
                         text="Total"
                         icon={<UserRoundCog size={16} color="#f97015" />}
-                        data={users.length}
+                        data={data.length}
                     />
                     <MiniCardUser
                         text="Ativos"
                         icon={<CircleCheckBig size={16} color="hsl(142 71% 45%)" />}
-                        data={users.filter(user => user.emailConfirmed === true).length}
+                        data={data.filter(user => user.emailConfirmed === true).length}
                     />
 
                 </div>
+                <div className={styles.search}>
+                    <Search size={16} color="hsl(220 10% 46%)"/>
+                    <input type="text" placeholder="Buscar..." onChange={(e) => setSearch(e.target.value)} />
+                </div>
             </section>
             <section className={styles.containerTwo}>
-                {users.map(user => {
-                    return (<User
-                        id={user.id}
-                        email={user.userName}
-                        ativo={user.emailConfirmed}
-                        cargo={user.cargo}
-                        departamento={user.departamento}
-                        nome={user.name}
-                    />)
-                })}
+                {filteredUsers.map((item) => (
+                    <User
+                        key={item.id}
+                        id={item.id}
+                        email={item.userName}
+                        ativo={item.emailConfirmed}
+                        nome={item.name}
+                        cargo={item.cargo}
+                        departamento={item.departamento}
+                    />
+                ))}
             </section>
+
+            {isOpen && (
+                <FormUser setIsOpen={setIsOpen} />
+            )}
         </main>
     )
 }

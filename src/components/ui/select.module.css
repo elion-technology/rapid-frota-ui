@@ -1,0 +1,57 @@
+.trigger {
+    height: 40px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    padding: 0 12px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.trigger:focus {
+    outline: none;
+    border-color: #f97316;
+}
+
+.content {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 50;
+}
+
+.viewport {
+    padding: 4px;
+}
+
+.item {
+    font-family: "Inter", sans-serif;
+    position: relative;
+    padding: 10px 12px 10px 36px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.item:hover {
+    background: #fff1e7;
+}
+
+.item[data-state="checked"] {
+    background: #fff3e0;
+    color: #f97316;
+}
+
+.check {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f97316;
+}

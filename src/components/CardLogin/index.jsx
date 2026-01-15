@@ -20,15 +20,16 @@ function CardLogin() {
                     email,
                     "password": senha
                 }),
+                credentials: "include"
             })
 
-            if (!response.ok) throw new Error("Login inválido"); 
+            if (!response.ok) throw new Error("Login inválido");
 
-            const data = await response.text();
+            await response.json();
+
             toast.success("Login realizado com sucesso!");
             navigate("/")
 
-        
         } catch (err) {
             console.error(err.message);
             toast.error("Login inválido! Verifique email e senha.");
