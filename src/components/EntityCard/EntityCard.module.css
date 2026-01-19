@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.containerInfo {
+    display: flex;
+    gap: 0.5rem;
+    color: #f97015;
+}
+
+.containerIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    background-color: #f970151a;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+}
+
+.title {
+    font-family: "Inter", sans-serif;
+    color: #1d121b;
+    font-weight: bold;
+    font-size: 1rem;
+}

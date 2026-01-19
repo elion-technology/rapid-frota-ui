@@ -1,4 +1,4 @@
-import FieldUser from "./FieldUser";
+import FieldForm from "../FieldForm";
 import styles from "./FormUser.module.css"
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -56,19 +56,19 @@ function FormUser({ setIsOpen }) {
         <div className={styles.container}>
             <form onSubmit={handleSubmit}>
                 <h1>Novo Usuário</h1>
-                <FieldUser
+                <FieldForm
                     type="text"
                     placeholder="Digite o nome completo"
                     field="Nome completo"
                     setThing={setNome}
                 />
-                <FieldUser
+                <FieldForm
                     type="email"
                     placeholder="Digite@email.com"
                     field="Email"
                     setThing={setEmail}
                 />
-                <FieldUser
+                <FieldForm
                     type="password"
                     placeholder="Digite sua senha"
                     field="Senha"

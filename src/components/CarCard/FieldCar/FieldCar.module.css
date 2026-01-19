@@ -1,0 +1,19 @@
+.container label {
+    font-size: 0.75rem;
+    font-family: "Inter", sans-serif;
+    color: #6a7181;
+}
+
+.container p {
+    font-size: 0.875rem;
+    color: #1d121b;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}

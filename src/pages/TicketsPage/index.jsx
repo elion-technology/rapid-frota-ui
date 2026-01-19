@@ -7,7 +7,7 @@ function TicketsPage() {
     return (
         <main className={styles.container}>
             <div className={styles.containerOne}>
-                <Title title="Checklists" text="Gerencie os acessos ao sistema" />
+                <Title title="Tickets" text="Gerencie os acessos ao sistema" />
                 <ButtonPage text="Ticket"
                 />
             </div>

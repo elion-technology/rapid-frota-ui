@@ -1,6 +1,6 @@
-import styles from "./FieldUser.module.css"
+import styles from "./FieldForm.module.css"
 
-function FieldUser({ field, type, placeholder, setThing, pattern, title }) {
+function FieldForm({ field, type, placeholder, setThing, pattern, title }) {
     return (
         <div className={styles.container}>
             <label htmlFor={field}>{field}</label>
@@ -17,4 +17,4 @@ function FieldUser({ field, type, placeholder, setThing, pattern, title }) {
     )
 }
 
-export default FieldUser;
+export default FieldForm;

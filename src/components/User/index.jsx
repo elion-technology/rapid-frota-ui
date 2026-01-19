@@ -1,7 +1,7 @@
 import styles from "./User.module.css";
 import { CircleUserRound, CircleCheckBig, CircleX, SquarePen } from "lucide-react";
-import Tag from "../Tag";
-import CloneTag from "../CloneTag";
+import TagActive from "../TagActive";
+import TagSubtitle from "../TagSubtitle";
 
 function User({ id, cargo, nome, ativo, departamento, email, }) {
     return (
@@ -13,16 +13,18 @@ function User({ id, cargo, nome, ativo, departamento, email, }) {
                     </div>
                     <div>
                         <h3>{nome}</h3>
-                        <CloneTag
+                        <TagSubtitle
                             text={cargo}
                             color="#6a7181"
                             background="#f3f4f6"
+                            padding="0.25rem 0.5rem"
+                            fontSize="0.75rem"
                         />
                     </div>
                 </div>
                 <div>
-                    {ativo ? <Tag text="Ativo" icon={<CircleCheckBig size={12} color="hsl(142 71% 45%)" />} isActive={true} /> :
-                        <Tag text="Inativo" icon={<CircleX size={12} color="#6a7181" />} isActive={false} />}
+                    {ativo ? <TagActive text="Ativo" icon={<CircleCheckBig size={12} color="hsl(142 71% 45%)" />} isActive={true} /> :
+                        <TagActive text="Inativo" icon={<CircleX size={12} color="#6a7181" />} isActive={false} />}
                 </div>
             </div>
             <div>

@@ -1,15 +1,16 @@
 import styles from "./CloneTag.module.css";
 
-function CloneTag({ text, icon, color, background }) {
+function TagSubtitle({ text, color, background, padding, fontSize }) {
     return(
         <div style={{
             backgroundColor: background,
-            color: color
+            color: color,
+            padding: padding,
+            fontSize: fontSize
         }} className={styles.container}>
-            {icon}
             <span >{text}</span>
         </div>
     )
 }
 
-export default CloneTag
+export default TagSubtitle

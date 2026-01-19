@@ -1,11 +1,11 @@
-import Title from "../../components/Title";
-import ButtonPage from "../../components/ButtonPage";
+import HeaderPage from "../../components/HeaderPage";
 import styles from "./UsersPage.module.css";
 import { useState, useEffect } from "react";
 import User from "../../components/User";
 import { UserRoundCog, CircleCheckBig, Search } from "lucide-react";
 import MiniCardUser from "../../components/MiniCardUser";
 import FormUser from "../../components/FormUser";
+import SearchBar from "../../components/SearchBar";
 
 function UsersPage() {
     const [data, setData] = useState([]);
@@ -49,12 +49,11 @@ function UsersPage() {
     return (
         <main className={styles.container}>
             <section className={styles.containerOne}>
-                <section className={styles.header}>
-                    <Title title="Usuários" text="Gerencie os acessos ao sistema" />
-                    <ButtonPage text="Usuário" func={() => setIsOpen(true)} />
-
-
-                </section>
+                <HeaderPage
+                    title="Usuários"
+                    textTitle="Gerencie os acessos ao sistema"
+                    textBtn="Usuário"
+                />
                 <div className={styles.cards}>
                     <MiniCardUser
                         text="Total"
@@ -66,12 +65,8 @@ function UsersPage() {
                         icon={<CircleCheckBig size={16} color="hsl(142 71% 45%)" />}
                         data={data.filter(user => user.emailConfirmed === true).length}
                     />
-
                 </div>
-                <div className={styles.search}>
-                    <Search size={16} color="hsl(220 10% 46%)"/>
-                    <input type="text" placeholder="Buscar..." onChange={(e) => setSearch(e.target.value)} />
-                </div>
+                <SearchBar setSearch={setSearch} />
             </section>
             <section className={styles.containerTwo}>
                 {filteredUsers.map((item) => (
