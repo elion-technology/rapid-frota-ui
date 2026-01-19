@@ -2,7 +2,7 @@ import HeaderPage from "../../components/HeaderPage";
 import styles from "./UsersPage.module.css";
 import { useState, useEffect } from "react";
 import User from "../../components/User";
-import { UserRoundCog, CircleCheckBig, Search } from "lucide-react";
+import { UserRoundCog, CircleCheckBig } from "lucide-react";
 import MiniCardUser from "../../components/MiniCardUser";
 import FormUser from "../../components/FormUser";
 import SearchBar from "../../components/SearchBar";

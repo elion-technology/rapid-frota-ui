@@ -11,7 +11,7 @@ import {
 function NewChecklist() {
     const [car, setCar] = useState("Infraestrutura");
 
-    const [cars, setCars] = useState([])
+   // const [cars, setCars] = useState([])
 
     return (
         <main className={styles.container}>
