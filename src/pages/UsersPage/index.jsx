@@ -30,10 +30,10 @@ function UsersPage() {
     }, []);
 
     const filteredUsers = data.filter(user =>
-        user.name.toLowerCase().includes(search.toLowerCase()) ||
-        user.userName.toLowerCase().includes(search.toLowerCase()) ||
-        user.departamento.toLowerCase().includes(search.toLowerCase()) ||
-        user.cargo.toLowerCase().includes(search.toLowerCase())
+        user.name?.toLowerCase().includes(search.toLowerCase()) ||
+        user.userName?.toLowerCase().includes(search.toLowerCase()) ||
+        user.departamento?.toLowerCase().includes(search.toLowerCase()) ||
+        user.cargo?.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
