@@ -4,34 +4,26 @@ import HeaderPage from "../../components/HeaderPage";
 import SearchBar from "../../components/SearchBar";
 import MiniCardUser from "../../components/MiniCardUser"
 import Tecnico from "../../components/Tecnico";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { getTecnicos } from "../../api/tecnicos.api";
+import FormTecnico from "../../components/FormTecnico";
 
 function TecnicosPage() {
     const [tecnicos, setTecnicos] = useState([]);
     const [search, setSearch] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        const fetchTecnicos = async () => {
-            try {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/tec`, {
-                    method: "GET",
-                    credentials: "include"
-                });
-
-                if (!res.ok) {
-                    console.log("Não autorizado:", res.status);
-                    return;
+        getTecnicos()
+            .then(res => setTecnicos(res.data))
+            .catch((error) => {
+                if(error.response.status === 401) {
+                    return toast.error("Não autorizado!");
+                } else if(error.response.status != 200) {
+                    return toast.error("Erro! Verificar com suporte");
                 }
-
-                const json = await res.json();
-                setTecnicos(json);
-
-
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        fetchTecnicos();
+            });
     }, []);
 
 
@@ -50,6 +42,7 @@ function TecnicosPage() {
                     title="Técnicos"
                     textTitle="Gerencie sua frota de veículos"
                     textBtn="Técnico"
+                    setIsOpen={setIsOpen}
                 />
                 <MiniCardUser
                         text="Total de Técnicos"
@@ -59,9 +52,13 @@ function TecnicosPage() {
             </section>
             <section className={styles.cards}>
                 {filteredCars.map(tec => {
-                    return <Tecnico thisTecnico={tec} />
+                    return <Tecnico thisTecnico={tec} key={tec.id} />
                 })}
             </section>
+            <ToastContainer position="top-right" autoClose={3000} />
+            {isOpen && (
+                <FormTecnico setIsOpen={setIsOpen} setTecnicos={setTecnicos}/>
+            )}
         </main>
     )
 }

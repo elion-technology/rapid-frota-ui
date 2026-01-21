@@ -8,7 +8,8 @@ import {
     SelectContent,
     SelectItem
 } from "../ui/select"
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
+
 
 function FormUser({ setIsOpen }) {
     const [cargo, setCargo] = useState("Líder");
@@ -17,10 +18,34 @@ function FormUser({ setIsOpen }) {
     const [nome, setNome] = useState("");
     const [senha, setSenha] = useState("");
 
+
+    const regras = useMemo(() => ({
+        temNumero: /\d/,
+        temEspecial: /[@#!$*&]/,
+        temMaiuscula: /[A-Z]/,
+        temMinuscula: /[a-z]/
+    }), []);
+
+    const validacao = useMemo(() => {
+        return {
+            numero: regras.temNumero.test(senha),
+            especial: regras.temEspecial.test(senha),
+            maiuscula: regras.temMaiuscula.test(senha),
+            minuscula: regras.temMinuscula.test(senha),
+            tamanho: senha.length >= 8
+        };
+    }, [senha, regras]);
+
+    const isValid = Object.values(validacao).every(v => v === true);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
+            if (!isValid) {
+                return toast.error("Senha não cumpre os requisitos necessários");
+            }
+
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -68,14 +93,6 @@ function FormUser({ setIsOpen }) {
                     field="Email"
                     setThing={setEmail}
                 />
-                <FieldForm
-                    type="password"
-                    placeholder="Digite sua senha"
-                    field="Senha"
-                    setThing={setSenha}
-                    title="A senha deve ter letra maiúscula e minúscula, número, símbolo e mínimo de 6 caracteres"
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{6,}$"
-                />
                 <div className={styles.containerSelect}>
                     <div className={styles.select}>
                         <label>Cargo</label>
@@ -104,6 +121,21 @@ function FormUser({ setIsOpen }) {
                         </SelectRoot>
                     </div>
                 </div>
+                <input
+                    className={styles.inputPassword}
+                    type="password"
+                    placeholder="Digite sua senha"
+                    field="Senha"
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
+                />
+                <ul>
+                    {validacao.numero ? <li className={styles.true}>A senha precisa conter número</li> : <li className={styles.false}>A senha precisa conter número</li>}
+                    {validacao.especial ? <li className={styles.true}>A senha precisa conter caracteres especiais - @#$%&*!</li> : <li className={styles.false}>A senha precisa conter caracteres especiais - @#$%&*!</li>}
+                    {validacao.maiuscula ? <li className={styles.true}>A senha precisa conter letra maiúscula</li> : <li className={styles.false}>A senha precisa conter letra maiúscula</li>}
+                    {validacao.minuscula ? <li className={styles.true}>A senha precisa conter letra minúscula</li> : <li className={styles.false}>A senha precisa conter letra minúscula</li>}
+                    {validacao.tamanho ? <li className={styles.true}>A senha precisa conter no mínimo 8 caracteres</li> : <li className={styles.false}>A senha precisa conter no mínimo 8 caracteres</li>}
+                </ul>
                 <button className={styles.btn} type="submit">Criar usuário</button>
                 <button className={styles.btnCancel} type="click" onClick={() => setIsOpen(false)}>Cancelar</button>
             </form >

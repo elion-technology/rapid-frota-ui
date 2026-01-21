@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./InputChecklist.module.css"
 
 function InputChecklist({ part, name }) {
     const [tipo, setTipo] = useState(true);
@@ -12,7 +13,7 @@ function InputChecklist({ part, name }) {
             </td>
             <td>
                 <input type="radio"
-                    name={`}gr${name}`}
+                    name={`gr${name}`}
                     value={true}
                     checked={tipo === true}
                     onChange={() => setTipo(true)}
@@ -21,14 +22,14 @@ function InputChecklist({ part, name }) {
             <td>
                 <input
                     type="radio"
-                    name={`}gr${name}`}
+                    name={`gr${name}`}
                     value={false}
                     checked={tipo === false}
                     onChange={() => setTipo(false)}
                 />
             </td>
             <td>
-                {!tipo && <input type="text" placeholder="Descreva a problema..." onChange={(e) => setData(e.target.value)} />}
+                {!tipo && <textarea className={styles.describe} type="text" placeholder="Descreva a problema..." onChange={(e) => setData(e.target.value)} />}
             </td>
         </tr>
     )

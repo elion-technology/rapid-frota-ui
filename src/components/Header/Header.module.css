@@ -1,9 +1,9 @@
 .header {
-    display: flex;
+    display: block;
+    width: 100%;
     padding: 1rem;
     background-color: #1d212b;
     position: fixed;
-    width: 100%;
     top: 0;
     left: 0;
     z-index: 2;
@@ -16,13 +16,18 @@
     grid-template-columns: 1fr 2fr 1fr;
 }
 
-.header nav:nth-child(1) {
-   justify-self: left;
-
+.header nav > *:nth-child(1) {
+    justify-self: start;
 }
 
-.header nav:nth-child(2) {
+/* Alinha o segundo item (Menu/Centro) ao centro */
+.header nav > *:nth-child(2) {
     justify-self: center;
+}
+
+/* Alinha o terceiro item (Perfil/Sair) à direita */
+.header nav > *:nth-child(3) {
+    justify-self: end;
 }
 
 .header nav div {

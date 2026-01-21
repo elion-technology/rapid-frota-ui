@@ -1,4 +1,4 @@
-import { Menu, Car } from "lucide-react"
+import { Menu, Car, LogOut } from "lucide-react"
 import styles from "./Header.module.css"
 import { useState } from "react";
 import Sidebar from "../Sidebar";
@@ -25,6 +25,10 @@ function Header() {
                         </div>
                         <p>Rapid Frota</p>
                     </div>
+                    <LogOut 
+                        color="#c5cad3cc"
+                        size={24}
+                    />
                 </nav>
 
             </header>

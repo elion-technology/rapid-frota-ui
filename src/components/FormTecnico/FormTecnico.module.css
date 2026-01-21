@@ -75,19 +75,14 @@
     border: 1px solid hsl(220 13% 91%);
 }
 
-.true {
-    font-family: "Inter", sans-serif;
-    font-size: 0.75rem;
-    color: #03e621
+.selectInput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.30rem;
 }
 
-.false {
-    font-family: "Inter", sans-serif;
-    font-size: 0.75rem;
-    color: #c52b2b
-}
 
-.inputPassword {
+.selectInput input {
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     border: 1px solid hsl(220 13% 91%);
@@ -96,7 +91,40 @@
     color: #1d121b;
 }
 
-.inputPassword:focus {
+.selectInput:focus input {
+    outline: none;
+    border-color: #f97316;
+}
+
+.selectInput label {
+    color: #1d121b;
+    font-family: "Inter", sans-serif;
+    font-size: 0.875rem;
+}
+
+.number {
+    display: flex;
+    flex-direction: column;
+    gap: 0.30rem;
+}
+
+
+.number label {
+    color: #1d121b;
+    font-family: "Inter", sans-serif;
+    font-size: 0.875rem;
+}
+
+.number input {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(220 13% 91%);
+    background-color: transparent;
+    font-family: "Inter", sans-serif;
+    color: #1d121b;
+}
+
+.number input:focus {
     outline: none;
     border-color: #f97316;
 }

@@ -11,12 +11,17 @@ function CarCard({ thisCar }) {
                 title={thisCar.placa}
                 subtitle={`${thisCar.marca} ${thisCar.model}`}
             />
-            <div className={styles.containerInfo}>
-                <FieldCar
-                    label="Técnico"
-                    text={thisCar.tecnico.name}
-                />
-            </div>
+
+            {thisCar.tecnico === null ? "" :
+                <div className={styles.containerInfo}>
+                    <FieldCar
+                        label="Técnico"
+                        text={thisCar.tecnico.name}
+                    />
+                </div>
+            }
+
+
         </div>
     )
 }

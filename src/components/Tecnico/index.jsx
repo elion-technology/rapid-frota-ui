@@ -11,10 +11,14 @@ function Tecnico({ thisTecnico }) {
                 subtitle={thisTecnico.email}
             />
             <div className={styles.containerInfo}>
-                <FieldTecnico
+                {thisTecnico.car === null ? <FieldTecnico
+                    value="------"
+                    text="Placa"
+                /> : <FieldTecnico
                     value={thisTecnico.car.placa}
                     text="Placa"
-                />
+                />}
+
                 <FieldTecnico
                     value={thisTecnico.setor}
                     text="Setor"

@@ -22,12 +22,14 @@
     border-radius: 12px;
     border: 1px solid #e5e7eb;
     box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     z-index: 50;
 }
 
 .viewport {
     padding: 4px;
+    overflow-y: scroll;
+    max-height: 200px; /* Ou qualquer altura que você deseje para o menu */
+    overflow-y: scroll;  /* Troque 'scroll' por 'auto' para a barra só aparecer se precisar */
 }
 
 .item {

@@ -1,0 +1,14 @@
+.describe {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(220 13% 91%);
+    background-color: transparent;
+    font-family: "Inter", sans-serif;
+    color: #1d121b;
+    width: 80%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+}

@@ -6,6 +6,9 @@ import { UserRoundCog, CircleCheckBig } from "lucide-react";
 import MiniCardUser from "../../components/MiniCardUser";
 import FormUser from "../../components/FormUser";
 import SearchBar from "../../components/SearchBar";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { getUsers } from "../../api/users.api";
 
 function UsersPage() {
     const [data, setData] = useState([]);
@@ -15,28 +18,15 @@ function UsersPage() {
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth`, {
-                    method: "GET",
-                    credentials: "include"
-                });
-
-                if (!res.ok) {
-                    console.log("Não autorizado:", res.status);
-                    return;
+        getUsers()
+            .then(res => setData(res.data))
+            .catch((error) => {
+                if(error.response.status === 401) {
+                    return toast.error("Não autorizado!");
+                } else if(error.response.status != 200) {
+                    return toast.error("Erro! Verificar com suporte");
                 }
-
-                const json = await res.json();
-                setData(json);
-
-
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        fetchData();
+            } )
     }, []);
 
     const filteredUsers = data.filter(user =>
@@ -53,6 +43,7 @@ function UsersPage() {
                     title="Usuários"
                     textTitle="Gerencie os acessos ao sistema"
                     textBtn="Usuário"
+                    setIsOpen={setIsOpen}
                 />
                 <div className={styles.cards}>
                     <MiniCardUser
@@ -81,6 +72,7 @@ function UsersPage() {
                     />
                 ))}
             </section>
+            <ToastContainer position="top-right" autoClose={3000} />
 
             {isOpen && (
                 <FormUser setIsOpen={setIsOpen} />
