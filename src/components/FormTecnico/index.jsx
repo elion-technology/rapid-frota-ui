@@ -8,7 +8,7 @@ import {
     SelectContent,
     SelectItem
 } from "../ui/select"
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createTecnico } from "../../api/tecnicos.api.js"
 import { getCars } from "../../api/cars.api.js";
 
@@ -41,7 +41,7 @@ function FormTecnico({ setIsOpen, setTecnicos }) {
             .catch((error) => {
                 if (error.response.status === 401) {
                     return toast.error("Não autorizado!");
-                } else if (error.response.status != 200) {
+                } else if (error.response.status !== 200) {
                     return toast.error("Erro! Verificar com suporte");
                 }
             });
@@ -76,7 +76,7 @@ function FormTecnico({ setIsOpen, setTecnicos }) {
             .catch((error) => {
                 if (error.response.status === 401) {
                     return toast.error("Não autorizado!");
-                } else if (error.response.status != 200) {
+                } else if (error.response.status !== 200) {
                     return toast.error("Erro! Verificar com suporte");
                 }
             })

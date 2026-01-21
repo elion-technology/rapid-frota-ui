@@ -8,7 +8,7 @@ import {
     SelectContent,
     SelectItem
 } from "../ui/select"
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 
 
 function FormUser({ setIsOpen }) {

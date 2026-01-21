@@ -64,7 +64,7 @@ function FormCar({ setIsOpen, setCars, cars }) {
             .catch((error) => {
                 if (error.response.status === 401) {
                     return toast.error("Não autorizado!");
-                } else if (error.response.status != 200) {
+                } else if (error.response.status !== 200) {
                     return toast.error("Erro! Verificar com suporte");
                 }
             })
