@@ -18,6 +18,7 @@ function CarsPage() {
         getCars()
             .then(res => setCars(res.data))
             .catch((error) => {
+                setCars([])
                 if(error.response.status === 401) {
                     return toast.error("Não autorizado!");
                 } else if(error.response.status !== 200) {
@@ -27,13 +28,13 @@ function CarsPage() {
     }, []);
 
 
-    const filteredCars = cars.filter(car =>
+    const filteredCars = Array.isArray(cars) ? cars.filter(car =>
         car.color?.toLowerCase().includes(search.toLowerCase()) ||
         car.placa?.toLowerCase().includes(search.toLowerCase()) ||
         car.model?.toLowerCase().includes(search.toLowerCase()) ||
         car.marca?.toLowerCase().includes(search.toLowerCase()) ||
         car.tecnico?.name?.toLowerCase().includes(search.toLowerCase())
-    );
+    ) : []
 
     return (
         <main className={styles.container}>

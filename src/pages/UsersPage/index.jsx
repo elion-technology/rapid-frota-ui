@@ -21,6 +21,7 @@ function UsersPage() {
         getUsers()
             .then(res => setData(res.data))
             .catch((error) => {
+                setData([]); //SEGURANÇA PARA NÃO QUEBRAR O CÓDIGO
                 if(error.response.status === 401) {
                     return toast.error("Não autorizado!");
                 } else if(error.response.status !== 200) {
@@ -29,12 +30,12 @@ function UsersPage() {
             } )
     }, []);
 
-    const filteredUsers = data.filter(user =>
-        user.name?.toLowerCase().includes(search.toLowerCase()) ||
-        user.userName?.toLowerCase().includes(search.toLowerCase()) ||
-        user.departamento?.toLowerCase().includes(search.toLowerCase()) ||
-        user.cargo?.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredUsers = Array.isArray(data) ? data.filter(user =>
+        user.name.toLowerCase().includes(search.toLowerCase()) ||
+        user.userName.toLowerCase().includes(search.toLowerCase()) ||
+        user.departamento.toLowerCase().includes(search.toLowerCase()) ||
+        user.cargo.toLowerCase().includes(search.toLowerCase())) 
+        : []
 
     return (
         <main className={styles.container}>

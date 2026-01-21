@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { getTecnicos } from "../../api/tecnicos.api";
 import FormTecnico from "../../components/FormTecnico";
+import { Tent } from "lucide-react";
 
 function TecnicosPage() {
     const [tecnicos, setTecnicos] = useState([]);
@@ -18,6 +19,7 @@ function TecnicosPage() {
         getTecnicos()
             .then(res => setTecnicos(res.data))
             .catch((error) => {
+                setTecnicos(tecnicos);
                 if(error.response.status === 401) {
                     return toast.error("Não autorizado!");
                 } else if(error.response.status !== 200) {
@@ -27,13 +29,13 @@ function TecnicosPage() {
     }, []);
 
 
-    const filteredCars = tecnicos.filter(tecnico =>
+    const filteredCars = Array.isArray(tecnicos) ? tecnicos.filter(tecnico =>
         tecnico.name.toLowerCase().includes(search.toLowerCase()) ||
         tecnico.number.toLowerCase().includes(search.toLowerCase()) ||
         tecnico.email.toLowerCase().includes(search.toLowerCase()) ||
         tecnico.setor.toLowerCase().includes(search.toLowerCase()) ||
         tecnico.car?.placa?.toLowerCase().includes(search.toLowerCase())
-    );
+    ) : []
 
     return (
         <main className={styles.container}>
