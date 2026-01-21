@@ -18,7 +18,7 @@ function TecnicosPage() {
         getTecnicos()
             .then(res => setTecnicos(res.data))
             .catch((error) => {
-                setTecnicos(tecnicos);
+                setTecnicos([]);
                 if(error.response.status === 401) {
                     return toast.error("Não autorizado!");
                 } else if(error.response.status !== 200) {
