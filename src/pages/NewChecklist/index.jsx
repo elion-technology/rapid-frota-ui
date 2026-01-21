@@ -104,6 +104,7 @@ function NewChecklist() {
                         <InputChecklist name="31" part="O veículo possui vazamentos" />
                     </tbody>
                 </table>
+                <button>Finalizar Checklist</button>
             </form>
             <ToastContainer position="top-right" autoClose={3000} />
         </main>
