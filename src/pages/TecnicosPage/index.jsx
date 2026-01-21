@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { getTecnicos } from "../../api/tecnicos.api";
 import FormTecnico from "../../components/FormTecnico";
-import { Tent } from "lucide-react";
 
 function TecnicosPage() {
     const [tecnicos, setTecnicos] = useState([]);
