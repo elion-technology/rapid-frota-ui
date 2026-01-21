@@ -15,7 +15,7 @@ function NewChecklist() {
     const [carId, setCarId] = useState("");
     const [cars, setCars] = useState([])
 
-    const selectedCar = cars.find(c => c.id.toString() === carId);
+    const selectedCar = Array.isArray(cars) ? cars.find(c => c.id.toString() === carId) : "";
 
     useEffect(() => {
         getCars()
