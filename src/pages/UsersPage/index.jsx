@@ -22,19 +22,19 @@ function UsersPage() {
             .then(res => setData(res.data))
             .catch((error) => {
                 setData([]); //SEGURANÇA PARA NÃO QUEBRAR O CÓDIGO
-                if(error.response.status === 401) {
+                if (error.response.status === 401) {
                     return toast.error("Não autorizado!");
-                } else if(error.response.status !== 200) {
+                } else if (error.response.status !== 200) {
                     return toast.error("Erro! Verificar com suporte");
                 }
-            } )
+            })
     }, []);
 
     const filteredUsers = Array.isArray(data) ? data.filter(user =>
         user.name.toLowerCase().includes(search.toLowerCase()) ||
         user.userName.toLowerCase().includes(search.toLowerCase()) ||
         user.departamento.toLowerCase().includes(search.toLowerCase()) ||
-        user.cargo.toLowerCase().includes(search.toLowerCase())) 
+        user.cargo.toLowerCase().includes(search.toLowerCase()))
         : []
 
     return (
@@ -55,7 +55,11 @@ function UsersPage() {
                     <MiniCardUser
                         text="Ativos"
                         icon={<CircleCheckBig size={16} color="hsl(142 71% 45%)" />}
-                        data={data.filter(user => user.emailConfirmed === true).length}
+                        data={
+                            Array.isArray(data)
+                                ? data.filter(user => user.emailConfirmed).length
+                                : 0
+                        }
                     />
                 </div>
                 <SearchBar setSearch={setSearch} />
