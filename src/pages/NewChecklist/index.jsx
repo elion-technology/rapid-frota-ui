@@ -39,9 +39,9 @@ function NewChecklist() {
                         <SelectRoot value={carId} onValueChange={setCarId}>
                             <SelectTrigger />
                             <SelectContent>
-                                {cars.map((carro) => {
+                                {Array.isArray(cars) ?cars.map((carro) => {
                                     return <SelectItem value={`${carro.id}`} key={carro.id}>{carro.placa}</SelectItem>
-                                })}
+                                }) : ""}
                             </SelectContent>
                         </SelectRoot>
                     </div>
