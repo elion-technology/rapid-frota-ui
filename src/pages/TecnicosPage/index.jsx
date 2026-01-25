@@ -28,7 +28,7 @@ function TecnicosPage() {
     }, []);
 
 
-    const filteredCars = Array.isArray(tecnicos) ? tecnicos.filter(tecnico =>
+    const filteredTecnicos = Array.isArray(tecnicos) ? tecnicos.filter(tecnico =>
         tecnico.name.toLowerCase().includes(search.toLowerCase()) ||
         tecnico.number.toLowerCase().includes(search.toLowerCase()) ||
         tecnico.email.toLowerCase().includes(search.toLowerCase()) ||
@@ -52,7 +52,7 @@ function TecnicosPage() {
                 <SearchBar setSearch={setSearch} />
             </section>
             <section className={styles.cards}>
-                {filteredCars.map(tec => {
+                {filteredTecnicos.map(tec => {
                     return <Tecnico thisTecnico={tec} key={tec.id} />
                 })}
             </section>

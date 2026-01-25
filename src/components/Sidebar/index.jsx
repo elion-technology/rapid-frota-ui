@@ -17,7 +17,6 @@ function Sidebar({ setIsOpen }) {
             .then(res => setUserData(res.data))
             .catch((error) => {
                 if(error.response.status === 401) {
-                    alert("Usuário não autenticado. Logue novamente")
                     navigate("/login")
                 }
             })
