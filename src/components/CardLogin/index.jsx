@@ -54,6 +54,7 @@ function CardLogin() {
                 <InputLogin
                     folder="Senha"
                     type="password"
+                    placeholder="••••••••••••"
                     icon={true}
                     value={senha}
                     onChange={(e) => setSenha(e.target.value)}

@@ -43,7 +43,7 @@ function TecnicosPage() {
                     title="Técnicos"
                     textTitle="Gerencie sua frota de veículos"
                     textBtn="Técnico"
-                    setIsOpen={setIsOpen}
+                    setIsOpen={() => setIsOpen(true)}
                 />
                 <MiniCardUser
                         text="Total de Técnicos"

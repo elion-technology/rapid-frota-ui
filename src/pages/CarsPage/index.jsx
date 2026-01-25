@@ -43,7 +43,7 @@ function CarsPage() {
                     title="Carros"
                     textTitle="Gerencie sua frota de veículos"
                     textBtn="Carro"
-                    setIsOpen={setIsOpen}
+                    setIsOpen={() => setIsOpen(true)}
                 />
                 <MiniCardUser
                     text="Total de Carros"

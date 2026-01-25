@@ -28,6 +28,7 @@ function App() {
           <Route path="/checklist/new" element={canAccess ? <NewChecklist /> : <Navigate to="/"/>}/>
         </Route>
         <Route path="/login" element={<Login />}/>
+        <Route path="*" element={<>Not Found</>} />
       </Routes>
     </BrowserRouter>
   );

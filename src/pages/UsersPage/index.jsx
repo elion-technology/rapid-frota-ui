@@ -44,7 +44,7 @@ function UsersPage() {
                     title="Usuários"
                     textTitle="Gerencie os acessos ao sistema"
                     textBtn="Usuário"
-                    setIsOpen={setIsOpen}
+                    setIsOpen={() => setIsOpen(true)}
                 />
                 <div className={styles.cards}>
                     <MiniCardUser

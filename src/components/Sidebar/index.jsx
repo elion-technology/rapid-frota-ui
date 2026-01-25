@@ -1,10 +1,28 @@
 import styles from "./Sidebar.module.css";
 import InfoHeader from "../InfoHeader";
 import ButtonSidebar from "../ButtonSidebar";
+import UserBlock from "./UserBlock";
 import { UserRoundCog, Users, Car, ClipboardList, Wrench, SquareCheckBig } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { check } from "../../api/users.api";
 
 
 function Sidebar({ setIsOpen }) {
+    const [ userData, setUserData ] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        check()
+            .then(res => setUserData(res.data))
+            .catch((error) => {
+                if(error.response.status === 401) {
+                    alert("Usuário não autenticado. Logue novamente")
+                    navigate("/login")
+                }
+            })
+    })
+
     return (
         <div className={styles.sidebarOverlay}>
             <nav className={styles.sidebar}>
@@ -20,12 +38,6 @@ function Sidebar({ setIsOpen }) {
                         path="/tecnicos"
                         icon={<Users className="icon" size={22} />}
                         text="Técnicos"
-                        setIsOpen={setIsOpen}
-                    />
-                    <ButtonSidebar
-                        path="/oficinas"
-                        icon={<Wrench className="icon" size={22} />}
-                        text="Oficinas"
                         setIsOpen={setIsOpen}
                     />
                     <ButtonSidebar
@@ -47,6 +59,7 @@ function Sidebar({ setIsOpen }) {
                         setIsOpen={setIsOpen}
                     />
                 </div>
+                <UserBlock user={userData}/>
             </nav>
         </div>
     )

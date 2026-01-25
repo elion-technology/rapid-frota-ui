@@ -1,35 +1,37 @@
-import { useState } from "react";
 import styles from "./InputChecklist.module.css"
 
-function InputChecklist({ part, name }) {
-    const [tipo, setTipo] = useState(true);
-    const [data, setData] = useState("");
-    console.log(data);
-
+function InputChecklist({ itemKey, onChangeValue, onChangeDescricao, item }) {
     return (
         <tr>
             <td>
-                <span>{part}</span>
+                <span>{item.label}</span>
             </td>
             <td>
                 <input type="radio"
-                    name={`gr${name}`}
+                    name={itemKey}
                     value={true}
-                    checked={tipo === true}
-                    onChange={() => setTipo(true)}
+                    checked={item.value === true}
+                    onChange={() => onChangeValue(item.key, true)}
                 />
             </td>
             <td>
                 <input
                     type="radio"
-                    name={`gr${name}`}
+                    name={itemKey}
                     value={false}
-                    checked={tipo === false}
-                    onChange={() => setTipo(false)}
+                    checked={item.value === false}
+                    onChange={() => onChangeValue(item.key, false)}
                 />
             </td>
             <td>
-                {!tipo && <textarea className={styles.describe} type="text" placeholder="Descreva a problema..." onChange={(e) => setData(e.target.value)} />}
+                {!item.value && 
+                    <textarea 
+                        className={styles.describe} 
+                        placeholder="Descreva a problema..." 
+                        value={item.descricao}
+                        onChange={(e) => onChangeDescricao(item.key, e.target.value)} 
+                    />
+                }
             </td>
         </tr>
     )

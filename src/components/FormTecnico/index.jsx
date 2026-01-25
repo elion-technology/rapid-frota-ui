@@ -126,8 +126,8 @@ function FormTecnico({ setIsOpen, setTecnicos }) {
                             <SelectTrigger />
                             <SelectContent>
                                 <SelectItem value="0">Nenhum</SelectItem>
-                                {Array.isArray(cars) ? cars.map((car) => {
-                                    return <SelectItem value={car.id.toString()}>{car.placa}</SelectItem>
+                                {Array.isArray(cars) ? cars.map((car, index) => {
+                                    return <SelectItem value={car.id.toString()} key={index + 1}>{car.placa}</SelectItem>
                                 }) : ""}
                             </SelectContent>
                         </SelectRoot>

@@ -10,12 +10,87 @@ import {
 } from "../../components/ui/select";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { createChecklist } from "../../api/checklists.api";
+import { useNavigate } from "react-router-dom";
 
 function NewChecklist() {
+    const navigate = useNavigate();
+
     const [carId, setCarId] = useState("");
     const [cars, setCars] = useState([])
+    const [checklist, setChecklist] = useState([{ key: "freioDePe", label: "Freio de pé", value: true, descricao: "" },
+    { key: "freioDeEstacionamento", label: "Freio de estacionamento", value: true, descricao: "" },
+    { key: "motorDePartida", label: "Motor de partida", value: true, descricao: "" },
+    { key: "limpadorDeParabrisa", label: "Limpador de parabrisa", value: true, descricao: "" },
+    { key: "lavadorDeParabrisa", label: "Lavador de parabrisa", value: true, descricao: "" },
+    { key: "buzina", label: "Buzina", value: true, descricao: "" },
+    { key: "farois", label: "Faróis", value: true, descricao: "" },
+    { key: "lanternasDianteiras", label: "Lanternas dianteiras (seta)", value: true, descricao: "" },
+    { key: "lanternasTraseiras", label: "Lanternas traseiras (seta)", value: true, descricao: "" },
+    { key: "luzDeRe", label: "Luz de ré", value: true, descricao: "" },
+    { key: "luzDaPlaca", label: "Luz da placa", value: true, descricao: "" },
+    { key: "indicadoresDePainel", label: "Indicadores de painel", value: true, descricao: "" },
+    { key: "cintoDeSeguranca", label: "Cinto de segurança", value: true, descricao: "" },
+    { key: "luzDeFreio", label: "Luz de freio", value: true, descricao: "" },
+    { key: "fechamentoDeJanelas", label: "Fechamento de janelas", value: true, descricao: "" },
+    { key: "trianguloDeAdvertencia", label: "Triângulo de advertência", value: true, descricao: "" },
+    { key: "macaco", label: "Macaco", value: true, descricao: "" },
+    { key: "chaveDeRoda", label: "Chave de roda", value: true, descricao: "" },
+    { key: "condicaoDosPneus", label: "Condição dos pneus", value: true, descricao: "" },
+    { key: "pneuEstepe", label: "Pneu estepe", value: true, descricao: "" },
+    { key: "vidros", label: "Vidros", value: true, descricao: "" },
+    { key: "portas", label: "Portas", value: true, descricao: "" },
+    { key: "paraChoqueDianteiro", label: "Para-choque dianteiro", value: true, descricao: "" },
+    { key: "paraChoqueTraseiro", label: "Para-choque traseiro", value: true, descricao: "" },
+    { key: "lataria", label: "Lataria", value: true, descricao: "" },
+    { key: "espelhosRetrovisores", label: "Espelhos retrovisores", value: true, descricao: "" },
+    { key: "nivelDeOleo", label: "Nível de óleo", value: true, descricao: "" },
+    { key: "nivelFluidoDeFreio", label: "Nível fluido de freio", value: true, descricao: "" },
+    { key: "nivelDeAgua", label: "Nível de água", value: true, descricao: "" },
+    { key: "documentacaoDoCarro", label: "Documentação do carro", value: true, descricao: "" },
+    { key: "possuiVazamentos", label: "O veículo possui vazamentos", value: true, descricao: "" }
+    ]);
 
     const selectedCar = Array.isArray(cars) ? cars.find(c => c.id.toString() === carId) : "";
+
+    const updateValue = (key, newValue) => {
+        setChecklist(prev =>
+            prev.map(item =>
+                item.key === key
+                    ? { ...item, value: newValue }
+                    : item
+            )
+        );
+    };
+
+    const updateDescricao = (key, descricao) => {
+        setChecklist(prev =>
+            prev.map(item =>
+                item.key === key
+                    ? { ...item, descricao }
+                    : item
+            )
+        );
+    };
+
+    const payload = {
+        carId: Number(carId),
+        condutorId: selectedCar?.tecnico?.id,
+        aprovado: checklist.some(item => item.value === false)
+            ? false
+            : true,
+
+        ...Object.fromEntries(
+            checklist.map(item => [item.key, item.value])
+        ),
+
+        ...Object.fromEntries(
+            checklist.map(item => [
+                `${item.key}Descricao`,
+                item.descricao?.trim() || null
+            ])
+        )
+    }
 
     useEffect(() => {
         getCars()
@@ -29,9 +104,38 @@ function NewChecklist() {
             });
     }, []);
 
+    const handleSubmit = (body) => {
+        const itensInvalidos = checklist.filter(
+            item => item.value === false && !item.descricao.trim()
+        );
+
+        if (itensInvalidos.length > 0) {
+            const labels = itensInvalidos.map(i => i.label).join(", ");
+            toast.error(
+                `Descreva o problema para: ${labels}`
+            );
+            return false;
+        }
+
+        createChecklist(body)
+            .then(() => {
+                navigate("/checklists")
+            })
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    return toast.error("Não autorizado!");
+                } else if (error.response.status !== 200) {
+                    return toast.error("Erro! Verificar com suporte");
+                }
+            });
+    }
+
     return (
         <main className={styles.container}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(payload)
+            }}>
                 <h1>Novo Checklist</h1>
                 <div className={styles.infos}>
                     <div className={styles.select}>
@@ -39,7 +143,7 @@ function NewChecklist() {
                         <SelectRoot value={carId} onValueChange={setCarId}>
                             <SelectTrigger />
                             <SelectContent>
-                                {Array.isArray(cars) ?cars.map((carro) => {
+                                {Array.isArray(cars) ? cars.map((carro) => {
                                     return <SelectItem value={`${carro.id}`} key={carro.id}>{carro.placa}</SelectItem>
                                 }) : ""}
                             </SelectContent>
@@ -71,40 +175,19 @@ function NewChecklist() {
                         </tr>
                     </thead>
                     <tbody>
-                        <InputChecklist name="1" part="Freio de pé" />
-                        <InputChecklist name="2" part="Freio de estacionamento" />
-                        <InputChecklist name="3" part="Motor de partida" />
-                        <InputChecklist name="4" part="Limpador de Parabrisa" />
-                        <InputChecklist name="5" part="Lavador de Parabrisa" />
-                        <InputChecklist name="6" part="Buzina" />
-                        <InputChecklist name="7" part="Faróis" />
-                        <InputChecklist name="8" part="Lanternas dianteiras(seta)" />
-                        <InputChecklist name="9" part="Lanternas traseiras(seta)" />
-                        <InputChecklist name="10" part="Luz de ré" />
-                        <InputChecklist name="11" part="Luz da placa" />
-                        <InputChecklist name="12" part="Indicadores de painel" />
-                        <InputChecklist name="13" part="Cinto de segurança" />
-                        <InputChecklist name="14" part="Luz de freio" />
-                        <InputChecklist name="15" part="Fechamento de janelas" />
-                        <InputChecklist name="16" part="Triangulo de advertência" />
-                        <InputChecklist name="17" part="Macaco" />
-                        <InputChecklist name="18" part="Chave de roda" />
-                        <InputChecklist name="19" part="Condição dos pneus" />
-                        <InputChecklist name="20" part="Pneu estepe" />
-                        <InputChecklist name="21" part="Vidros" />
-                        <InputChecklist name="22" part="Portas" />
-                        <InputChecklist name="23" part="Para-choque dianteiro" />
-                        <InputChecklist name="24" part="Para-choque traseiro" />
-                        <InputChecklist name="25" part="Lataria" />
-                        <InputChecklist name="26" part="Espelho retrovisores" />
-                        <InputChecklist name="27" part="Nível de óleo" />
-                        <InputChecklist name="28" part="Nível fluido de freio" />
-                        <InputChecklist name="29" part="Nível de água" />
-                        <InputChecklist name="30" part="Documentação do carro" />
-                        <InputChecklist name="31" part="O veículo possui vazamentos" />
+                        {checklist.map(item => (
+                            <InputChecklist
+                                key={item.key}
+                                itemKey={item.key}
+                                item={item}
+                                onChangeValue={updateValue}
+                                onChangeDescricao={updateDescricao}
+                            />
+                        ))}
                     </tbody>
                 </table>
-                <button>Finalizar Checklist</button>
+                <button className={styles.btn} type="submit">Finalizar Checklist</button>
+                <button className={styles.cancel} type="button" onClick={() => navigate("/checklists")}>Cancelar</button>
             </form>
             <ToastContainer position="top-right" autoClose={3000} />
         </main>
