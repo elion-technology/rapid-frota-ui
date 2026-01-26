@@ -5,5 +5,5 @@ export const getTickets = () => {
 };
 
 export const createTicket = async (body) => {
-    return api.get("/tick/register", body);
+    return api.post("/tick/register", body);
 }

@@ -19,6 +19,8 @@ function FormTicket({ setIsOpen, setTickets }) {
     const [dataPrevista, setDataPrevista] = useState("")
     const [descricao, setDescricao] = useState("")
 
+    
+
 
     const [cars, setCars] = useState([])
     const [carId, setCarId] = useState("0")
@@ -60,15 +62,14 @@ function FormTicket({ setIsOpen, setTickets }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+
         const valueForBackend = custo.replace(/,/g, '');
 
-        const dataSeparada = dataPrevista.split("/")
-
-        const dataFormatada = `${dataSeparada[2]}-${dataSeparada[1]}-${dataSeparada[0]}T17:00:00`
+        const dataFormatada = `${dataPrevista}T17:00:00`
 
         const ticketData = {
             Custo: valueForBackend,
-            DataPrevista: dataFormatada,
+            DataPrevisao: dataFormatada,
             Oficina: oficina,
             CarId: +carId === 0 ? null : +carId,
             Status: status,
