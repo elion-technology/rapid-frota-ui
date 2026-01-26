@@ -1,4 +1,4 @@
-import { Ticket } from "lucide-react";
+import Ticket from "../../components/Ticket"
 import styles from "./TicketsPage.module.css"
 import { useEffect, useState } from "react";
 import FormTicket from "../../components/FormTicket";
@@ -10,25 +10,29 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function TicketsPage() {
-    const [ isOpen, setIsOpen ] = useState(false)
-    const [ tickets, setTickets ] = useState([])
-    const [ search, setSearch ] = useState("")
+    const [isOpen, setIsOpen] = useState(false)
+    const [tickets, setTickets] = useState([])
+    const [search, setSearch] = useState("")
 
     useEffect(() => {
         getTickets()
-            .then(res => setTickets(res.data))
+            .then(res => setTickets(res.data.sort((a, b) => b.id - a.id)))
             .catch((error) => {
                 setTickets([]);
-                if(error.response.status === 401) {
+                if (error.response.status === 401) {
                     return toast.error("Não autorizado!");
-                } else if(error.response.status !== 200) {
+                } else if (error.response.status !== 200) {
                     return toast.error("Erro! Verificar com suporte");
                 }
             })
     }, [])
 
     const filteredTickets = Array.isArray(tickets) ? tickets.filter(ticket =>
-        ticket.car.placa.toLowerCase().includes(search.toLowerCase()) 
+        ticket.car.placa.toLowerCase().includes(search.toLowerCase()) ||
+        ticket.dataAbertura.toLowerCase().includes(search.toLowerCase()) ||
+        ticket.dataPrevisao.toLowerCase().includes(search.toLowerCase()) ||
+        ticket.status.toLowerCase().includes(search.toLowerCase()) ||
+        ticket.oficina.toLowerCase().includes(search.toLowerCase()) 
     ) : []
 
     return (

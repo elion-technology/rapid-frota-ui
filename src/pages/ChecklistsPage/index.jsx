@@ -26,9 +26,18 @@ function ChecklistsPage({ setCanAccess }) {
         setIsOpen(true);
     }
 
+    function parseDateTime(data, hora) {
+        const [dia, mes, ano] = data.split("/");
+        return new Date(`${ano}-${mes}-${dia}T${hora}`);
+    }
+
     useEffect(() => {
         getChecklists()
-            .then(res => setChecklists(res.data))
+            .then(res => setChecklists(res.data.sort((a, b) => {
+                const dateA = parseDateTime(a.data, a.hora);
+                const dateB = parseDateTime(b.data, b.hora);
+                return dateB - dateA;
+            })))
             .catch((error) => {
                 setChecklists([])
                 if (error.response.status === 401) {
@@ -84,11 +93,11 @@ function ChecklistsPage({ setCanAccess }) {
                 <SearchBar setSearch={setSearch} />
             </section>
             <section className={styles.cards}>
-                {filteredChecklists.map((check, index) => <Checklist thisChecklist={check} openModal={openModal} key={index + 1}/>)}
+                {filteredChecklists.map((check, index) => <Checklist thisChecklist={check} openModal={openModal} key={index + 1} />)}
             </section>
             <ToastContainer position="top-right" autoClose={3000} />
             {isOpen && (
-                <ChecklistModal thisChecklist={checklist} setIsOpen={setIsOpen}/>
+                <ChecklistModal thisChecklist={checklist} setIsOpen={setIsOpen} />
             )}
         </main >
     )

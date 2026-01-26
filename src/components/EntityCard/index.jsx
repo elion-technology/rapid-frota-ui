@@ -1,8 +1,11 @@
-import { Ellipsis } from "lucide-react";
+import { Ellipsis, SquarePen, Check } from "lucide-react";
 import styles from "./EntityCard.module.css";
 import TagSubtitle from "../TagSubtitle"
+import { useState } from "react";
 
 function EntityCard({ title, subtitle, icon, background }) {
+    const [ isOpen, setIsOpen ] = useState(false)
+
     return (
         <div className={styles.container}>
             <div className={styles.containerInfo}>
@@ -17,7 +20,15 @@ function EntityCard({ title, subtitle, icon, background }) {
                     />
                 </div>
             </div>
-            <Ellipsis />
+            <div className={styles.btn}>
+                <Ellipsis onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)} />
+                {isOpen && (
+                    <div className={styles.select}>
+                        <button><SquarePen size={14} /> Interagir</button>
+                        <button><Check size={14} />Finalizar</button>
+                    </div>
+                )}
+            </div>
         </div>
     )
 }
